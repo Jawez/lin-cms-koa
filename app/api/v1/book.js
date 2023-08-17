@@ -82,4 +82,4 @@ bookApi.linDelete(
   }
 );
 
-module.exports = { bookApi, [disableLoading]: false };
+module.exports = { bookApi, [disableLoading]: true };

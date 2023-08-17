@@ -7,7 +7,7 @@ class BookSearchValidator extends LinValidator {
   }
 }
 
-class CreateOrUpdateBookValidator extends LinValidator {
+class CreateOrUpdateValidator extends LinValidator {
   constructor () {
     super();
     this.title = new Rule('isNotEmpty', '必须传入图书名');
@@ -20,4 +20,4 @@ class CreateOrUpdateBookValidator extends LinValidator {
   }
 }
 
-export { CreateOrUpdateBookValidator, BookSearchValidator };
+export { CreateOrUpdateValidator, BookSearchValidator };

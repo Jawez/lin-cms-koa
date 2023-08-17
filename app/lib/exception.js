@@ -5,7 +5,7 @@ const CodeMessage = config.getItem('codeMessage', {});
 /**
  * 自定义异常类
  */
-class BookNotFound extends HttpException {
+class ResourceNotFound extends HttpException {
   constructor (ex) {
     super();
     this.status = 404;
@@ -15,4 +15,4 @@ class BookNotFound extends HttpException {
   }
 }
 
-export { BookNotFound };
+export { ResourceNotFound };
