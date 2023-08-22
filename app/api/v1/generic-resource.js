@@ -18,11 +18,10 @@ const resourceApi = new LinRouter({
 const genericDto = new GenericDao();
 
 resourceApi.use('/', async (ctx, next) => {
-  const modelName = classify(ctx.params.resource)
+  const modelName = classify(ctx.params.resource.replace('-', '_'))
   const Model = await import(`../../model/${ctx.params.resource}.js`);
   ctx.request.model = Model.default[modelName];
   ctx.request.modelName = modelName;
-  console.log(`++++++++++++++++++++\n/:resource ${ctx.path} ${ctx.params.resource} ${modelName} ${ctx.request.model}`);
   await next();
 });
 
