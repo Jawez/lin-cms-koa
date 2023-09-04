@@ -30,8 +30,8 @@ CREATE TABLE resource
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_general_ci;
 
-DROP TABLE IF EXISTS analyzer;
-CREATE TABLE analyzer
+DROP TABLE IF EXISTS state;
+CREATE TABLE state
 (
     id          int(11)     NOT NULL AUTO_INCREMENT,
     name        varchar(50) NOT NULL,
@@ -39,6 +39,22 @@ CREATE TABLE analyzer
     create_time datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     update_time datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3),
     delete_time datetime(3)          DEFAULT NULL,
+    PRIMARY KEY (id)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4
+  COLLATE = utf8mb4_general_ci;
+
+DROP TABLE IF EXISTS analyzer;
+CREATE TABLE analyzer
+(
+    id            int(11)     NOT NULL AUTO_INCREMENT,
+    name          varchar(50) NOT NULL,
+    description   varchar(200)         DEFAULT NULL,
+    manager_id    int(10) unsigned NOT NULL COMMENT '管理员id',
+    state_id      int(10) unsigned NOT NULL COMMENT '状态id',
+    create_time   datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    update_time   datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3),
+    delete_time   datetime(3)          DEFAULT NULL,
     PRIMARY KEY (id)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
@@ -53,6 +69,7 @@ CREATE TABLE borrow
     resource_id   int(10) unsigned NOT NULL COMMENT '资源id',
     comment       varchar(200)         DEFAULT NULL,
     borrow_data   datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    expect_return_data  datetime(3) NOT NULL,
     return_data   datetime(3),
     update_time   datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3),
     PRIMARY KEY (id)

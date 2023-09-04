@@ -3,7 +3,7 @@ import { merge } from 'lodash';
 import { Sequelize, Model } from 'sequelize';
 import sequelize from '../lib/db';
 
-class TemplateResource extends Model {
+class State extends Model {
   toJSON () {
     const origin = {
       id: this.id,
@@ -16,7 +16,7 @@ class TemplateResource extends Model {
 
 // https://sequelize.org/docs/v6/core-concepts/model-basics/
 // Extending Model and calling init(attributes, options)
-TemplateResource.init(
+State.init(
   {
     id: {
       type: Sequelize.INTEGER,
@@ -35,11 +35,11 @@ TemplateResource.init(
   merge(
     {
       sequelize,
-      tableName: 'template_resource',
-      modelName: 'template_resource'
+      tableName: 'state',
+      modelName: 'state'
     },
     InfoCrudMixin.options
   )
 );
 
-export { TemplateResource };
+export { State };
