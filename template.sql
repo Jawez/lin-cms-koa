@@ -6,7 +6,7 @@ CREATE TABLE template_resource
 (
     id          int(11)     NOT NULL AUTO_INCREMENT,
     name        varchar(50) NOT NULL,
-    summary     varchar(1000)        DEFAULT NULL,
+    description varchar(200)         DEFAULT NULL,
     create_time datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     update_time datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3),
     delete_time datetime(3)          DEFAULT NULL,
