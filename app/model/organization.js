@@ -3,16 +3,12 @@ import { merge } from 'lodash';
 import { Sequelize, Model } from 'sequelize';
 import sequelize from '../lib/db';
 
-class Analyzer extends Model {
+class Organization extends Model {
   toJSON () {
     const origin = {
       id: this.id,
       name: this.name,
       description: this.description,
-      image: this.image,
-      organization_id: this.organization_id,
-      manager_id: this.manager_id,
-      state_id: this.state_id,
     };
     return origin;
   }
@@ -20,7 +16,7 @@ class Analyzer extends Model {
 
 // https://sequelize.org/docs/v6/core-concepts/model-basics/
 // Extending Model and calling init(attributes, options)
-Analyzer.init(
+Organization.init(
   {
     id: {
       type: Sequelize.INTEGER,
@@ -34,32 +30,16 @@ Analyzer.init(
     description: {
       type: Sequelize.STRING(200),
       allowNull: true
-    },
-    image: {
-      type: Sequelize.STRING(100),
-      allowNull: true
-    },
-    organization_id: {
-      type: Sequelize.INTEGER,
-      allowNull: false
-    },
-    manager_id: {
-      type: Sequelize.INTEGER,
-      allowNull: false
-    },
-    state_id: {
-      type: Sequelize.INTEGER,
-      allowNull: false
     }
   },
   merge(
     {
       sequelize,
-      tableName: 'analyzer',
-      modelName: 'analyzer'
+      tableName: 'organization',
+      modelName: 'organization'
     },
     InfoCrudMixin.options
   )
 );
 
-export { Analyzer };
+export { Organization };

@@ -50,6 +50,8 @@ CREATE TABLE analyzer
     id            int(11)     NOT NULL AUTO_INCREMENT,
     name          varchar(50) NOT NULL,
     description   varchar(200)         DEFAULT NULL,
+    image         varchar(100)         DEFAULT NULL,
+    organization_id int(10) unsigned NOT NULL COMMENT '组织id',
     manager_id    int(10) unsigned NOT NULL COMMENT '管理员id',
     state_id      int(10) unsigned NOT NULL COMMENT '状态id',
     create_time   datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
