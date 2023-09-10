@@ -81,6 +81,22 @@ class AdminDao {
     };
   }
 
+  async getManagers (groupName, page, count) {
+    const group = await GroupModel.findOne({
+      where: {
+        name: groupName
+      }
+    });
+    console.log(group)
+    if (!group) {
+      throw new NotFound({
+        code: 10022
+      });
+    }
+
+    return this.getUsers(group.id, page, count);
+  }
+
   async changeUserPassword (ctx, v) {
     const user = await UserModel.findByPk(v.get('path.id'));
     if (!user) {

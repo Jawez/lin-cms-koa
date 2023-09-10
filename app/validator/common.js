@@ -28,4 +28,11 @@ class SearchValidator extends LinValidator {
   }
 }
 
-export { PaginateValidator, PositiveIdValidator, SearchValidator };
+class NameValidator extends LinValidator {
+  constructor () {
+    super();
+    this.name = new Rule('isNotEmpty', '必须传入名称关键字', { min: 1 });
+  }
+}
+
+export { PaginateValidator, PositiveIdValidator, SearchValidator, NameValidator };

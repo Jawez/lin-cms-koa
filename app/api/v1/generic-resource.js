@@ -56,24 +56,36 @@ resourceApi.get('/search/one', async ctx => {
   ctx.json(resource);
 });
 
-resourceApi.post('/', async ctx => {
-  const Validator = await import(`../../validator/${ctx.params.resource}.js`);
-  const v = await new Validator.default[`CreateOrUpdateValidator`]().validate(ctx);
-  await genericDto.createModel(ctx.request.model, v);
-  ctx.success({
-    code: 12
-  });
-});
+resourceApi.linPost(
+  'postResource',
+  '/',
+  resourceApi.permission('添加资源'),
+  groupRequired,
+  async ctx => {
+    const Validator = await import(`../../validator/${ctx.params.resource}.js`);
+    const v = await new Validator.default[`CreateOrUpdateValidator`]().validate(ctx);
+    await genericDto.createModel(ctx.request.model, v);
+    ctx.success({
+      code: 12
+    });
+  }
+);
 
-resourceApi.put('/:id', async ctx => {
-  const Validator = await import(`../../validator/${ctx.params.resource}.js`);
-  const v = await new Validator.default[`CreateOrUpdateValidator`]().validate(ctx);
-  const id = getSafeParamId(ctx);
-  await genericDto.updateModel(ctx.request.model, v, id);
-  ctx.success({
-    code: 13
-  });
-});
+resourceApi.linPut(
+  'updateResource',
+  '/:id',
+  resourceApi.permission('更新资源'),
+  groupRequired,
+  async ctx => {
+    const Validator = await import(`../../validator/${ctx.params.resource}.js`);
+    const v = await new Validator.default[`CreateOrUpdateValidator`]().validate(ctx);
+    const id = getSafeParamId(ctx);
+    await genericDto.updateModel(ctx.request.model, v, id);
+    ctx.success({
+      code: 13
+    });
+  }
+);
 
 resourceApi.linDelete(
   'deleteResource',
