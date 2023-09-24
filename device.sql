@@ -67,12 +67,13 @@ CREATE TABLE borrow
 (
     id            int(11)     NOT NULL AUTO_INCREMENT,
     user_id       int(10) unsigned NOT NULL COMMENT '用户id',
-    resource_type int(10) unsigned NOT NULL COMMENT '资源类型id',
+    resource_type varchar(50)      NOT NULL COMMENT '资源类型',
     resource_id   int(10) unsigned NOT NULL COMMENT '资源id',
     comment       varchar(200)         DEFAULT NULL,
     borrow_data   datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     expect_return_data  datetime(3) NOT NULL,
     return_data   datetime(3),
+    create_time   datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     update_time   datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3),
     PRIMARY KEY (id)
 ) ENGINE = InnoDB

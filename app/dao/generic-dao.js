@@ -1,5 +1,7 @@
 import { NotFound, Forbidden } from 'lin-mizar';
 import Sequelize from 'sequelize';
+import sequelize from '../lib/db';
+import { Borrow } from '../model/borrow';
 
 class GenericDao {
   async getModel (Model, id) {
@@ -53,6 +55,50 @@ class GenericDao {
     }
     resource = Object.assign(resource, v.get('body'));
     await resource.save();
+  }
+
+  async borrowModel (Model, v, userId, resourceType, resourceId) {
+    let resource = await Model.findByPk(resourceId);
+    if (!resource) {
+      throw new NotFound({
+        code: 10022
+      });
+    }
+    // console.log(resource.dataValues, v.get('body.state_id'), userId, resourceType, resourceId);
+
+    let transaction;
+    try {
+      transaction = await sequelize.transaction();
+      const borrow = {
+        user_id: userId,
+        resource_type: resourceType,
+        resource_id: resourceId,
+        // comment: v.get('body.comment'),
+        // MTODO
+        borrow_data: "2023-09-07T06:49:45.000Z",
+        expect_return_data: "2023-09-07T06:49:45.000Z",
+        // borrow_data: v.get('body.borrow_data'),
+        // expect_return_data: v.get('body.expect_return_data'),
+        // // return_data: v.get('body.return_data'),
+      };
+
+      await Borrow.create(borrow, {
+        transaction
+      });
+
+      resource = Object.assign(resource, {state_id: v.get('body.state_id')});
+      await resource.save({
+        transaction
+      });
+
+      await transaction.commit();
+    } catch (error) {
+      console.log("transaction err!!!", error);
+      if (transaction) await transaction.rollback();
+      throw new NotFound({
+        code: 9999
+      });
+    }
   }
 
   async deleteModel (Model, id) {

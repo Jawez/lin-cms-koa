@@ -87,6 +87,23 @@ resourceApi.linPut(
   }
 );
 
+// borrow api
+resourceApi.linPut(
+  'borrowResource',
+  '/:id/borrow',
+  resourceApi.permission('领用归还资源'),
+  groupRequired,
+  async ctx => {
+    const validator = await import(`../../validator/${ctx.params.resource}.js`);
+    const v = await new validator.default[`BorrowValidator`]().validate(ctx);
+    const id = getSafeParamId(ctx);
+    await genericDto.borrowModel(ctx.request.model, v, ctx.currentUser.id, ctx.params.resource, id);
+    ctx.success({
+      code: 13
+    });
+  }
+);
+
 resourceApi.linDelete(
   'deleteResource',
   '/:id',
@@ -102,4 +119,4 @@ resourceApi.linDelete(
   }
 );
 
-module.exports = { resourceApi, [disableLoading]: true };
+module.exports = { resourceApi, [disableLoading]: false };
