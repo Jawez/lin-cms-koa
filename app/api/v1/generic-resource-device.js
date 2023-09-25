@@ -1,5 +1,5 @@
 import { LinRouter, NotFound, disableLoading } from 'lin-mizar';
-import { groupRequired } from '../../middleware/jwt';
+import { loginRequired, groupRequired } from '../../middleware/jwt';
 import { PositiveIdValidator, SearchValidator } from '../../validator/common';
 import { classify } from 'inflection'
 
@@ -88,16 +88,34 @@ resourceApi.linPut(
 );
 
 // borrow api
-resourceApi.linPut(
+resourceApi.linPost(
   'borrowResource',
   '/:id/borrow',
-  resourceApi.permission('领用归还资源'),
-  groupRequired,
+  // resourceApi.permission('领用资源'),
+  // groupRequired,
+  loginRequired,
   async ctx => {
     const validator = await import(`../../validator/${ctx.params.resource}.js`);
     const v = await new validator.default[`BorrowValidator`]().validate(ctx);
     const id = getSafeParamId(ctx);
     await genericDto.borrowModel(ctx.request.model, v, ctx.currentUser.id, ctx.params.resource, id);
+    ctx.success({
+      code: 13
+    });
+  }
+);
+
+resourceApi.linPost(
+  'returnResource',
+  '/:id/return',
+  // resourceApi.permission('归还资源'),
+  // groupRequired,
+  loginRequired,
+  async ctx => {
+    const validator = await import(`../../validator/${ctx.params.resource}.js`);
+    const v = await new validator.default[`ReturnValidator`]().validate(ctx);
+    const id = getSafeParamId(ctx);
+    await genericDto.returnModel(ctx.request.model, v, ctx.currentUser.id, ctx.params.resource, id);
     ctx.success({
       code: 13
     });

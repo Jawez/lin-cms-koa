@@ -19,4 +19,11 @@ class BorrowValidator extends LinValidator {
   }
 }
 
-export { CreateOrUpdateValidator, BorrowValidator };
+class ReturnValidator extends LinValidator {
+  constructor () {
+    super();
+    this.state_id = new Rule('isNotEmpty', '必须传入状态信息');
+  }
+}
+
+export { CreateOrUpdateValidator, BorrowValidator, ReturnValidator };

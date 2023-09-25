@@ -69,25 +69,73 @@ class GenericDao {
     let transaction;
     try {
       transaction = await sequelize.transaction();
+      resource = Object.assign(resource, {state_id: v.get('body.state_id')});
+      await resource.save({
+        transaction
+      });
+
       const borrow = {
         user_id: userId,
         resource_type: resourceType,
         resource_id: resourceId,
-        // comment: v.get('body.comment'),
+        comment: v.get('body.comment'),
         // MTODO
         borrow_data: "2023-09-07T06:49:45.000Z",
         expect_return_data: "2023-09-07T06:49:45.000Z",
         // borrow_data: v.get('body.borrow_data'),
         // expect_return_data: v.get('body.expect_return_data'),
-        // // return_data: v.get('body.return_data'),
       };
-
       await Borrow.create(borrow, {
         transaction
       });
 
+      await transaction.commit();
+    } catch (error) {
+      console.log("transaction err!!!", error);
+      if (transaction) await transaction.rollback();
+      throw new NotFound({
+        code: 9999
+      });
+    }
+  }
+
+  async returnModel (Model, v, userId, resourceType, resourceId) {
+    let resource = await Model.findByPk(resourceId);
+    if (!resource) {
+      throw new NotFound({
+        code: 10022
+      });
+    }
+    let record = await Borrow.findOne({
+      where: {
+        user_id: userId,
+        resource_type: resourceType,
+        resource_id: resourceId,
+        return_data: null
+      }
+    });
+    if (!record) {
+      throw new NotFound({
+        code: 9999
+      });
+    }
+    console.log(resource.dataValues, record.dataValues, v.get('body.state_id'), userId, resourceType, resourceId);
+
+    let transaction;
+    try {
+      transaction = await sequelize.transaction();
       resource = Object.assign(resource, {state_id: v.get('body.state_id')});
       await resource.save({
+        transaction
+      });
+
+      record = Object.assign(record, {
+        comment: v.get('body.comment'),
+        // MTODO
+        return_data: "2023-09-07T06:49:45.000Z",
+        // return_data: v.get('body.return_data'),
+      });
+      await record.save({
         transaction
       });
 

@@ -75,6 +75,7 @@ CREATE TABLE borrow
     return_data   datetime(3),
     create_time   datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     update_time   datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3),
+    delete_time   datetime(3)          DEFAULT NULL,
     PRIMARY KEY (id)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
