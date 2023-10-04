@@ -10,10 +10,11 @@ class Borrow extends Model {
       user_id: this.user_id,
       resource_type: this.resource_type,
       resource_id: this.resource_id,
+      borrow_reason: this.borrow_reason,
+      borrow_date: this.borrow_date,
+      expect_return_date: this.expect_return_date,
+      return_date: this.return_date,
       comment: this.comment,
-      borrow_data: this.borrow_data,
-      expect_return_data: this.expect_return_data,
-      return_data: this.return_data,
     };
     return origin;
   }
@@ -38,20 +39,24 @@ Borrow.init(
       type: Sequelize.INTEGER,
       allowNull: false
     },
-    comment: {
+    borrow_reason: {
       type: Sequelize.STRING(200),
       allowNull: true
     },
-    borrow_data: {
+    borrow_date: {
       type: Sequelize.DATE,
       allowNull: false
     },
-    expect_return_data: {
+    expect_return_date: {
       type: Sequelize.DATE,
       allowNull: false
     },
-    return_data: {
+    return_date: {
       type: Sequelize.DATE,
+      allowNull: true
+    },
+    comment: {
+      type: Sequelize.STRING(200),
       allowNull: true
     },
   },

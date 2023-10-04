@@ -78,12 +78,11 @@ class GenericDao {
         user_id: userId,
         resource_type: resourceType,
         resource_id: resourceId,
+        borrow_reason: v.get('body.borrow_reason'),
+        // format: "2023-09-07T06:49:45.000Z"
+        borrow_date: v.get('body.borrow_date'),
+        expect_return_date: v.get('body.expect_return_date'),
         comment: v.get('body.comment'),
-        // MTODO
-        borrow_data: "2023-09-07T06:49:45.000Z",
-        expect_return_data: "2023-09-07T06:49:45.000Z",
-        // borrow_data: v.get('body.borrow_data'),
-        // expect_return_data: v.get('body.expect_return_data'),
       };
       await Borrow.create(borrow, {
         transaction
@@ -100,18 +99,20 @@ class GenericDao {
   }
 
   async returnModel (Model, v, userId, resourceType, resourceId) {
+    // console.log(v.get('body.state_id'), userId, resourceType, resourceId);
     let resource = await Model.findByPk(resourceId);
     if (!resource) {
       throw new NotFound({
         code: 10022
       });
     }
+    console.log(resource.dataValues);
     let record = await Borrow.findOne({
       where: {
-        user_id: userId,
+        // user_id: userId,
         resource_type: resourceType,
         resource_id: resourceId,
-        return_data: null
+        return_date: null
       }
     });
     if (!record) {
@@ -119,7 +120,7 @@ class GenericDao {
         code: 9999
       });
     }
-    console.log(resource.dataValues, record.dataValues, v.get('body.state_id'), userId, resourceType, resourceId);
+    // console.log(record.dataValues);
 
     let transaction;
     try {
@@ -131,9 +132,7 @@ class GenericDao {
 
       record = Object.assign(record, {
         comment: v.get('body.comment'),
-        // MTODO
-        return_data: "2023-09-07T06:49:45.000Z",
-        // return_data: v.get('body.return_data'),
+        return_date: v.get('body.return_date'),
       });
       await record.save({
         transaction

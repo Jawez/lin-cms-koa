@@ -6,6 +6,8 @@ import { classify } from 'inflection'
 import { getSafeParamId } from '../../lib/util';
 import { ResourceNotFound } from '../../lib/exception';
 import { GenericDao } from '../../dao/generic-dao';
+import { BorrowDao } from '../../dao/borrow';
+
 
 // 模型红图实例
 // 需要添加 model 和 validator 文件
@@ -16,6 +18,7 @@ const resourceApi = new LinRouter({
 
 // dao 数据库访问层实例
 const genericDto = new GenericDao();
+const borrowDao = new BorrowDao();
 
 resourceApi.use('/', async (ctx, next) => {
   const modelName = classify(ctx.params.resource.replace('-', '_'))
@@ -28,24 +31,55 @@ resourceApi.use('/', async (ctx, next) => {
 resourceApi.get('/:id', async ctx => {
   const v = await new PositiveIdValidator().validate(ctx);
   const id = v.get('path.id');
-  const resource = await genericDto.getModel(ctx.request.model, id);
+  let resource = await genericDto.getModel(ctx.request.model, id);
   if (!resource) {
     throw new NotFound({
       code: 10022
     });
   }
+
+  const borrow = await borrowDao.getRecordById(id)
+  // console.log(borrow.toJSON());
+  if (borrow) {
+    resource = Object.assign(resource.toJSON(), {
+      user_id: borrow.user_id,
+      borrow_reason: borrow.borrow_reason,
+      borrow_date: borrow.borrow_date,
+      expect_return_date: borrow.expect_return_date,
+      return_date: borrow.return_date,
+      comment: borrow.comment
+    });
+  }
   ctx.json(resource);
 });
 
-resourceApi.get('/', async ctx => {
-  const models = await genericDto.getModels(ctx.request.model);
-  // if (!models || models.length < 1) {
-  //   throw new NotFound({
-  //     message: '没有找到相关资源'
-  //   });
-  // }
-  ctx.json(models);
-});
+resourceApi.linGet(
+  'getResource',
+  '/',
+  loginRequired,
+  async ctx => {
+    const models = await genericDto.getModels(ctx.request.model);
+    // if (!models || models.length < 1) {
+    //   throw new NotFound({
+    //     message: '没有找到相关资源'
+    //   });
+    // }
+    const records = await borrowDao.getReturnableRecords(ctx.currentUser.id, ctx.params.resource);
+    const result = [];
+    models.forEach(item => {
+      const model = item.toJSON();
+      // MTODO: ctx.isAdmin
+      // if (ctx.isAdmin || records.find(record => (record.resource_id === model.id))) {
+      if (records.find(record => (record.resource_id === model.id))) {
+        model.returnable = true;
+      }
+      // console.log(model);
+      result.push(model);
+    })
+    // console.log(result);
+    ctx.json(result);
+  }
+);
 
 resourceApi.get('/search/one', async ctx => {
   const v = await new SearchValidator().validate(ctx);

@@ -31,6 +31,7 @@ async function isAdmin (ctx) {
       }
     }
   });
+  ctx.isAdmin = is;
   return is;
 }
 

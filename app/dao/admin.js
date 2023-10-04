@@ -87,7 +87,7 @@ class AdminDao {
         name: groupName
       }
     });
-    console.log(group)
+    // console.log(group)
     if (!group) {
       throw new NotFound({
         code: 10022
