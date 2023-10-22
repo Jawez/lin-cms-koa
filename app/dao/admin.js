@@ -43,7 +43,8 @@ class AdminDao {
         }
       },
       offset: page * count1,
-      limit: count1
+      limit: count1,
+      order: [['id', 'asc']]
     };
     if (groupId) {
       const userGroup = await UserGroupModel.findAll({

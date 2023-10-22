@@ -64,7 +64,13 @@ class GenericDao {
         code: 10022
       });
     }
-    // console.log(resource.dataValues, v.get('body.state_id'), userId, resourceType, resourceId);
+    if (resource.dataValues.state_id === v.get('body.state_id')) {
+      throw new NotFound({
+        code: 10030
+      });
+    }
+    // console.log(resource.dataValues, userId, resourceType, resourceId);
+    // console.log(resource.dataValues.state_id, v.get('body.state_id'));
 
     let transaction;
     try {
@@ -106,7 +112,12 @@ class GenericDao {
         code: 10022
       });
     }
-    console.log(resource.dataValues);
+    if (resource.dataValues.state_id === v.get('body.state_id')) {
+      throw new NotFound({
+        code: 10030
+      });
+    }
+    // console.log(resource.dataValues);
     let record = await Borrow.findOne({
       where: {
         // user_id: userId,

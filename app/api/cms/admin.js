@@ -16,7 +16,7 @@ import { AdminDao } from '../../dao/admin';
 
 const admin = new LinRouter({
   prefix: '/cms/admin',
-  module: '管理员',
+  module: '系统管理员',
   // 管理员权限暂不支持分配，开启分配后也无实际作用
   mountPermission: false
 });
@@ -37,8 +37,8 @@ admin.linGet(
 admin.linGet(
   'getAdminUsers',
   '/users',
-  admin.permission('查询所有用户'),
-  adminRequired,
+  // admin.permission('查询所有用户'),
+  // adminRequired,
   async ctx => {
     const v = await new AdminUsersValidator().validate(ctx);
     const { users, total } = await adminDao.getUsers(

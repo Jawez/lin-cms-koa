@@ -142,23 +142,6 @@ CREATE TABLE lin_user_identity
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_general_ci;
 
-DROP TABLE IF EXISTS book;
-CREATE TABLE book
-(
-    id          int(11)     NOT NULL AUTO_INCREMENT,
-    title       varchar(50) NOT NULL,
-    author      varchar(30)          DEFAULT NULL,
-    summary     varchar(1000)        DEFAULT NULL,
-    image       varchar(100)         DEFAULT NULL,
-    create_time datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
-    update_time datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3),
-    delete_time datetime(3)          DEFAULT NULL,
-    PRIMARY KEY (id)
-) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4
-  COLLATE = utf8mb4_general_ci;
-
-
 -- ----------------------------
 -- 用户-分组表
 -- ----------------------------
@@ -181,21 +164,48 @@ SET FOREIGN_KEY_CHECKS = 1;
 -- 插入root分组
 -- ----------------------------
 BEGIN;
-INSERT INTO lin_user(id, username, nickname)
-VALUES (1, 'root', 'root');
+INSERT INTO lin_user(id, username, nickname) VALUES
+  (1, 'root1', '系统管理员1'),
+  (2, 'root2', '系统管理员2'),
+  (3, 'root3', '系统管理员3'),
+  (4, 'device1', '设备管理员1'),
+  (5, 'device2', '设备管理员2'),
+  (6, 'device3', '设备管理员3'),
+  (7, 'user1', '用户1'),
+  (8, 'user2', '用户2'),
+  (9, 'user3', '用户3');
 
-INSERT INTO lin_user_identity (id, user_id, identity_type, identifier, credential)
+INSERT INTO lin_user_identity (id, user_id, identity_type, identifier, credential) VALUES
+  (1, 1, 'USERNAME_PASSWORD', 'root1', 'sha1$c419e500$1$84869e5560ebf3de26b6690386484929456d6c07'),
+  (2, 2, 'USERNAME_PASSWORD', 'root2', 'sha1$c419e500$1$84869e5560ebf3de26b6690386484929456d6c07'),
+  (3, 3, 'USERNAME_PASSWORD', 'root3', 'sha1$c419e500$1$84869e5560ebf3de26b6690386484929456d6c07'),
+  (4, 4, 'USERNAME_PASSWORD', 'device1', 'sha1$c419e500$1$84869e5560ebf3de26b6690386484929456d6c07'),
+  (5, 5, 'USERNAME_PASSWORD', 'device2', 'sha1$c419e500$1$84869e5560ebf3de26b6690386484929456d6c07'),
+  (6, 6, 'USERNAME_PASSWORD', 'device3', 'sha1$c419e500$1$84869e5560ebf3de26b6690386484929456d6c07'),
+  (7, 7, 'USERNAME_PASSWORD', 'user1', 'sha1$c419e500$1$84869e5560ebf3de26b6690386484929456d6c07'),
+  (8, 8, 'USERNAME_PASSWORD', 'user2', 'sha1$c419e500$1$84869e5560ebf3de26b6690386484929456d6c07'),
+  (9, 9, 'USERNAME_PASSWORD', 'user3', 'sha1$c419e500$1$84869e5560ebf3de26b6690386484929456d6c07');
 
-VALUES (1, 1, 'USERNAME_PASSWORD', 'root',
-        'sha1$c419e500$1$84869e5560ebf3de26b6690386484929456d6c07');
+INSERT INTO lin_group(id, name, info, level) VALUES
+  (1, 'root', '超级用户组', 1),
+  (2, 'user', '普通用户组', 2),
+  (3, 'device', '设备管理员组', 3);
 
-INSERT INTO lin_group(id, name, info, level)
-VALUES (1, 'root', '超级用户组', 1);
+INSERT INTO lin_user_group(id, user_id, group_id) VALUES
+  (1, 1, 1),
+  (2, 2, 1),
+  (3, 3, 1),
+  (4, 4, 3),
+  (5, 5, 3),
+  (6, 6, 3),
+  (7, 7, 2),
+  (8, 8, 2),
+  (9, 9, 2);
 
-INSERT INTO lin_group(id, name, info, level)
-VALUES (2, 'guest', '游客组', 2);
-
-INSERT INTO lin_user_group(id, user_id, group_id)
-VALUES (1, 1, 1);
+INSERT INTO `lin_group_permission` VALUES
+  (1,3,4),
+  (2,3,5),
+  (3,3,6),
+  (4,3,7);
 
 COMMIT;
