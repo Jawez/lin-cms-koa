@@ -160,8 +160,24 @@ CREATE TABLE lin_user_group
 SET FOREIGN_KEY_CHECKS = 1;
 
 -- ----------------------------
--- 插入超级管理员
--- 插入root分组
+-- 组织表
+-- ----------------------------
+DROP TABLE IF EXISTS organization;
+CREATE TABLE organization
+(
+    id          int(11)     NOT NULL AUTO_INCREMENT,
+    name        varchar(50) NOT NULL,
+    description varchar(200)         DEFAULT NULL,
+    create_time datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    update_time datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3),
+    delete_time datetime(3)          DEFAULT NULL,
+    PRIMARY KEY (id)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4
+  COLLATE = utf8mb4_general_ci;
+
+-- ----------------------------
+-- 插入数据
 -- ----------------------------
 BEGIN;
 INSERT INTO lin_user(id, username, nickname) VALUES
@@ -202,10 +218,16 @@ INSERT INTO lin_user_group(id, user_id, group_id) VALUES
   (8, 8, 2),
   (9, 9, 2);
 
-INSERT INTO `lin_group_permission` VALUES
+INSERT INTO lin_group_permission(id, group_id, permission_id) VALUES
   (1,3,4),
   (2,3,5),
   (3,3,6),
   (4,3,7);
+
+INSERT INTO organization(id, name, description) VALUES
+  (1,'深圳','广东省深圳市'),
+  (2,'重庆','重庆市'),
+  (3,'北京','北京市'),
+  (4,'上海','上海市');
 
 COMMIT;
