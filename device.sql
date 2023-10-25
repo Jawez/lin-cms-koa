@@ -97,7 +97,7 @@ INSERT INTO state(id, name, description) VALUES
 
 INSERT INTO resource_type(id, name, table_name, description) VALUES
   (1,'抓包工具','analyzer','无线抓包工具'),
-  (2,'手机','phone','测试手机');
+  (2,'测试手机','phone','测试组手机');
 
 INSERT INTO analyzer(id, name, description, organization_id, manager_id, state_id) VALUES
   (1,'Ellisys','行政部',1,1,1),
