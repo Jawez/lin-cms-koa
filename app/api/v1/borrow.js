@@ -9,7 +9,7 @@ import { BorrowDao } from '../../dao/borrow';
 
 const borrowApi = new LinRouter({
   prefix: '/v1/borrow',
-  module: '领用归还'
+  module: '领用信息查询'
 });
 
 const borrowDao = new BorrowDao();
@@ -17,9 +17,10 @@ const borrowDao = new BorrowDao();
 borrowApi.linGet(
   'getAllRecords',
   '/all',
-  borrowApi.permission('查询所有领用记录'),
-  groupRequired,
+  // borrowApi.permission('查询所有领用记录'),
+  // groupRequired,
   // adminRequired,
+  loginRequired,
   async ctx => {
     const models = await borrowDao.getRecords();
     // if (!models || models.length < 1) {
