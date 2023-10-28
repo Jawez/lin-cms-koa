@@ -16,7 +16,7 @@ import { AdminDao } from '../../dao/admin';
 
 const admin = new LinRouter({
   prefix: '/cms/admin',
-  module: '系统管理员',
+  module: '管理员',
   // 管理员权限暂不支持分配，开启分配后也无实际作用
   mountPermission: false
 });

@@ -66,7 +66,7 @@ class GenericDao {
     }
     if (resource.dataValues.state_id === v.get('body.state_id')) {
       throw new NotFound({
-        code: 10030
+        code: 20000
       });
     }
     // console.log(resource.dataValues, userId, resourceType, resourceId);
@@ -114,7 +114,7 @@ class GenericDao {
     }
     if (resource.dataValues.state_id === v.get('body.state_id')) {
       throw new NotFound({
-        code: 10030
+        code: 20000
       });
     }
     // console.log(resource.dataValues);

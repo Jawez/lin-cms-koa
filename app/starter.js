@@ -4,17 +4,6 @@ const path = require('path');
 
 const { config } = require('lin-mizar/lin/config');
 
-// router.post('/cms/file', async ctx => {
-//   ctx.body = 'Hello World';
-//   const files = await ctx.multipart();
-//   console.log(files)
-//   if (files.length < 1) {
-//     throw new Error('未找到符合条件的文件资源');
-//   }
-//   const uploader = new LocalUploader('assets');
-//   const arr = await uploader.upload(files);
-// });
-
 /**
  * 初始化并获取配置
  */

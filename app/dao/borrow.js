@@ -13,10 +13,11 @@ class BorrowDao {
     return data;
   }
 
-  async getRecordById (id) {
+  async getRecordById (resource_type, resource_id) {
     const data = await Borrow.findOne({
       where: {
-        id,
+        resource_type,
+        resource_id,
         return_date: null
       }
     });

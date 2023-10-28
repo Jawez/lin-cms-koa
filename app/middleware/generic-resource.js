@@ -29,8 +29,7 @@ async function getResource (ctx) {
     });
   }
 
-  const borrow = await borrowDao.getRecordById(id)
-  // console.log(borrow.toJSON());
+  const borrow = await borrowDao.getRecordById(ctx.params.resource, id)
   if (borrow) {
     resource = Object.assign(resource.toJSON(), {
       user_id: borrow.user_id,

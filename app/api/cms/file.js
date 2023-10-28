@@ -4,7 +4,8 @@ import { loginRequired } from '../../middleware/jwt';
 import { LocalUploader } from '../../extension/file/local-uploader';
 
 const file = new LinRouter({
-  prefix: '/cms/file'
+  prefix: '/cms/file',
+  module: '文件'
 });
 
 file.linPost('upload', '/', loginRequired, async ctx => {

@@ -15,7 +15,7 @@ import {
 // 需要添加 model 和 validator 文件
 const resourceApi = new LinRouter({
   prefix: '/v1/resource/:resource',
-  module: '系统资源管理'
+  module: '资源管理'
 });
 
 resourceApi.use('/', initModel);

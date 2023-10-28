@@ -9,7 +9,7 @@ import { AdminDao } from '../../dao/admin';
 
 const manager = new LinRouter({
   prefix: '/cms/manager',
-  module: '系统管理员',
+  module: '设备管理员',
 });
 
 const adminDao = new AdminDao();

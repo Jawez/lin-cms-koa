@@ -96,7 +96,7 @@ async function createApp () {
   const app = new Koa();
   applyBodyParse(app);
   applyCors(app);
-  applyStatic(app, '/');
+  applyStatic(app);
   const { log, error, Lin, multipart } = require('lin-mizar');
   app.use(log);
   app.on('error', error);

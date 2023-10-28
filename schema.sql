@@ -181,48 +181,75 @@ CREATE TABLE organization
 -- ----------------------------
 BEGIN;
 INSERT INTO lin_user(id, username, nickname) VALUES
-  (1, 'root1', '系统管理员1'),
-  (2, 'root2', '系统管理员2'),
-  (3, 'root3', '系统管理员3'),
-  (4, 'device1', '设备管理员1'),
-  (5, 'device2', '设备管理员2'),
-  (6, 'device3', '设备管理员3'),
-  (7, 'user1', '用户1'),
-  (8, 'user2', '用户2'),
-  (9, 'user3', '用户3');
+  ( 1, 'root', '超级管理员'),
+  ( 2, 'device', '设备管理员'),
+  ( 3, 'analyzer1', '抓包工具管理员1'),
+  ( 4, 'analyzer2', '抓包工具管理员2'),
+  ( 5, 'phone1', '测试手机管理员1'),
+  ( 6, 'phone2', '测试手机管理员2'),
+  ( 7, 'user1', '用户1'),
+  ( 8, 'user2', '用户2'),
+  ( 9, 'user3', '用户3'),
+  (10, 'user4', '用户4'),
+  (11, 'user5', '用户5'),
+  (12, 'user6', '用户6'),
+  (13, 'user7', '用户7'),
+  (14, 'user8', '用户8'),
+  (15, 'user9', '用户9');
 
 INSERT INTO lin_user_identity (id, user_id, identity_type, identifier, credential) VALUES
-  (1, 1, 'USERNAME_PASSWORD', 'root1', 'sha1$c419e500$1$84869e5560ebf3de26b6690386484929456d6c07'),
-  (2, 2, 'USERNAME_PASSWORD', 'root2', 'sha1$c419e500$1$84869e5560ebf3de26b6690386484929456d6c07'),
-  (3, 3, 'USERNAME_PASSWORD', 'root3', 'sha1$c419e500$1$84869e5560ebf3de26b6690386484929456d6c07'),
-  (4, 4, 'USERNAME_PASSWORD', 'device1', 'sha1$c419e500$1$84869e5560ebf3de26b6690386484929456d6c07'),
-  (5, 5, 'USERNAME_PASSWORD', 'device2', 'sha1$c419e500$1$84869e5560ebf3de26b6690386484929456d6c07'),
-  (6, 6, 'USERNAME_PASSWORD', 'device3', 'sha1$c419e500$1$84869e5560ebf3de26b6690386484929456d6c07'),
-  (7, 7, 'USERNAME_PASSWORD', 'user1', 'sha1$c419e500$1$84869e5560ebf3de26b6690386484929456d6c07'),
-  (8, 8, 'USERNAME_PASSWORD', 'user2', 'sha1$c419e500$1$84869e5560ebf3de26b6690386484929456d6c07'),
-  (9, 9, 'USERNAME_PASSWORD', 'user3', 'sha1$c419e500$1$84869e5560ebf3de26b6690386484929456d6c07');
+  ( 1,  1, 'USERNAME_PASSWORD', 'root', 'sha1$cf896d1f$1$d205a303c782feaddb82c6de1d1bbbf4e777dc96'),
+  ( 2,  2, 'USERNAME_PASSWORD', 'device', 'sha1$c419e500$1$84869e5560ebf3de26b6690386484929456d6c07'),
+  ( 3,  3, 'USERNAME_PASSWORD', 'analyzer1', 'sha1$c419e500$1$84869e5560ebf3de26b6690386484929456d6c07'),
+  ( 4,  4, 'USERNAME_PASSWORD', 'analyzer2', 'sha1$c419e500$1$84869e5560ebf3de26b6690386484929456d6c07'),
+  ( 5,  5, 'USERNAME_PASSWORD', 'phone1', 'sha1$c419e500$1$84869e5560ebf3de26b6690386484929456d6c07'),
+  ( 6,  6, 'USERNAME_PASSWORD', 'phone2', 'sha1$c419e500$1$84869e5560ebf3de26b6690386484929456d6c07'),
+  ( 7,  7, 'USERNAME_PASSWORD', 'user1', 'sha1$c419e500$1$84869e5560ebf3de26b6690386484929456d6c07'),
+  ( 8,  8, 'USERNAME_PASSWORD', 'user2', 'sha1$c419e500$1$84869e5560ebf3de26b6690386484929456d6c07'),
+  ( 9,  9, 'USERNAME_PASSWORD', 'user3', 'sha1$c419e500$1$84869e5560ebf3de26b6690386484929456d6c07'),
+  (10, 10, 'USERNAME_PASSWORD', 'user4', 'sha1$c419e500$1$84869e5560ebf3de26b6690386484929456d6c07'),
+  (11, 11, 'USERNAME_PASSWORD', 'user5', 'sha1$c419e500$1$84869e5560ebf3de26b6690386484929456d6c07'),
+  (12, 12, 'USERNAME_PASSWORD', 'user6', 'sha1$c419e500$1$84869e5560ebf3de26b6690386484929456d6c07'),
+  (13, 13, 'USERNAME_PASSWORD', 'user7', 'sha1$c419e500$1$84869e5560ebf3de26b6690386484929456d6c07'),
+  (14, 14, 'USERNAME_PASSWORD', 'user8', 'sha1$c419e500$1$84869e5560ebf3de26b6690386484929456d6c07'),
+  (15, 15, 'USERNAME_PASSWORD', 'user9', 'sha1$c419e500$1$84869e5560ebf3de26b6690386484929456d6c07');
 
 INSERT INTO lin_group(id, name, info, level) VALUES
   (1, 'root', '超级用户组', 1),
-  (2, 'user', '普通用户组', 2),
-  (3, 'device', '设备管理员组', 3);
+  (2, 'device', '设备管理组', 2),
+  (3, 'analyzer', '抓包工具管理组', 3),
+  (4, 'phone', '测试手机管理组', 3),
+  (5, 'user', '普通用户组', 4);
 
 INSERT INTO lin_user_group(id, user_id, group_id) VALUES
-  (1, 1, 1),
-  (2, 2, 1),
-  (3, 3, 1),
-  (4, 4, 3),
-  (5, 5, 3),
-  (6, 6, 3),
-  (7, 7, 2),
-  (8, 8, 2),
-  (9, 9, 2);
+  ( 1, 1, 1),
+  ( 2, 2, 2),
+  ( 3, 3, 3),
+  ( 4, 4, 3),
+  ( 5, 5, 4),
+  ( 6, 6, 4),
+  ( 7, 7, 5),
+  ( 8, 8, 5),
+  ( 9, 9, 5),
+  (10,10, 5),
+  (11,11, 5),
+  (12,12, 5),
+  (13,13, 5),
+  (14,14, 5),
+  (15,15, 5),
+  (16, 2, 3),
+  (17, 2, 4);
 
 INSERT INTO lin_group_permission(id, group_id, permission_id) VALUES
-  (1,3,4),
-  (2,3,5),
-  (3,3,6),
-  (4,3,7);
+  (1,2, 7),
+  (2,2, 8),
+  (3,2, 9),
+  (4,3, 4),
+  (5,3, 5),
+  (6,3, 6),
+  (7,4,10),
+  (8,4,11),
+  (9,4,12);
 
 INSERT INTO organization(id, name, description) VALUES
   (1,'深圳','广东省深圳市'),

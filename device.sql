@@ -93,26 +93,27 @@ BEGIN;
 INSERT INTO state(id, name, description) VALUES
   (1,'空闲','可领出'),
   (2,'领出','已领出'),
-  (3,'禁用','禁止领出');
+  (3,'禁用','禁止领出'),
+  (4,'预约','等待领出');
 
 INSERT INTO resource_type(id, name, table_name, description) VALUES
   (1,'抓包工具','analyzer','无线抓包工具'),
   (2,'测试手机','phone','测试组手机');
 
 INSERT INTO analyzer(id, name, description, organization_id, manager_id, state_id) VALUES
-  (1,'Ellisys','行政部',1,1,1),
-  (2,'Ellisys','测试部',1,1,1),
-  (3,'Ellisys','行政部',2,2,1),
-  (4,'Frontline','行政部',2,2,1),
+  (1,'Ellisys','行政部',1,2,1),
+  (2,'Ellisys','测试部',1,2,1),
+  (3,'Ellisys','行政部',2,3,1),
+  (4,'Frontline','行政部',2,3,1),
   (5,'Ellisys','行政部',3,4,1),
-  (6,'Ellisys','测试部',4,5,1);
+  (6,'Ellisys','测试部',4,4,1);
 
 INSERT INTO phone(id, name, description, organization_id, manager_id, state_id) VALUES
-  (1,'iPhone8','iOS 15.7',1,3,1),
-  (2,'mate30-TAS-AL00','Harmony OS 2.0.0',1,3,1),
-  (3,'OPPO Find X3','Android 13',1,3,1),
-  (4,'iQOO Z1x','Android 11',1,3,1),
-  (5,'MI 11','Android 12',1,3,1),
+  (1,'iPhone8','iOS 15.7',1,5,1),
+  (2,'mate30-TAS-AL00','Harmony OS 2.0.0',1,5,1),
+  (3,'OPPO Find X3','Android 13',1,5,1),
+  (4,'iQOO Z1x','Android 11',1,5,1),
+  (5,'MI 11','Android 12',1,5,1),
   (6,'iPhone8','iOS 15.7',3,6,1),
   (7,'mate20 Pro','',3,6,1),
   (8,'MI 5X','',3,6,1);
