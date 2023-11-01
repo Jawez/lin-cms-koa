@@ -199,7 +199,7 @@ INSERT INTO lin_user(id, username, nickname) VALUES
 
 INSERT INTO lin_user_identity (id, user_id, identity_type, identifier, credential) VALUES
   ( 1,  1, 'USERNAME_PASSWORD', 'root', 'sha1$cf896d1f$1$d205a303c782feaddb82c6de1d1bbbf4e777dc96'),
-  ( 2,  2, 'USERNAME_PASSWORD', 'device', 'sha1$c419e500$1$84869e5560ebf3de26b6690386484929456d6c07'),
+  ( 2,  2, 'USERNAME_PASSWORD', 'device', 'sha1$fa12be6b$1$010620b08931337a30a66cc18f6e163c79e85a47'),
   ( 3,  3, 'USERNAME_PASSWORD', 'analyzer1', 'sha1$c419e500$1$84869e5560ebf3de26b6690386484929456d6c07'),
   ( 4,  4, 'USERNAME_PASSWORD', 'analyzer2', 'sha1$c419e500$1$84869e5560ebf3de26b6690386484929456d6c07'),
   ( 5,  5, 'USERNAME_PASSWORD', 'phone1', 'sha1$c419e500$1$84869e5560ebf3de26b6690386484929456d6c07'),

@@ -16,6 +16,8 @@ class BorrowValidator extends LinValidator {
   constructor () {
     super();
     this.state_id = new Rule('isNotEmpty', '必须传入状态信息');
+    this.borrow_date = new Rule('isNotEmpty', '必须传入领用时间');
+    this.expect_return_date = new Rule('isNotEmpty', '必须传入预计归还时间');
   }
 }
 
